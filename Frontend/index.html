@@ -5,15 +5,19 @@
         <title>Todo</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="stylesheet" href="./static/css/style.css">
+        <script src="./static/js/public.js"></script>
     </head>
-    <body>
+    <body onload="getTodoRequestAsync()">
        <header>
            <div class="logo-container">
                <div class="logo-icon">
-                   
+                   <h5>
+                       Todo
+                       <span class="dot"></span>
+                    </h5>
                </div>
                <div class="logo-text">
-                   <h3>What do you do today?</h3>
+                   <h3>What are you doing to do today?</h3>
                </div>
            </div>
        </header>
@@ -24,24 +28,13 @@
            <section>
                <div class="form-wrapper">
                    <div class="form">
-                       <input type="text" name="msg-input">
-                   <div class="create-button">
+                       <input type="text" id="form-input" name="msg-input">
+                   <div class="create-button" onclick="createTodoRequestAsync()">
                        확인
                    </div>
             </div>    
                </div>
-               <div class="todos-wrapper">
-                   <div class='todo-item'>
-                       <div class="todo-item-title">
-                           
-                       </div>
-                       <div class="todo-item-contents">
-                           
-                       </div>
-                       <div class="todo-item-check">
-                           
-                       </div>
-                   </div>
+               <div class="todo-wrapper" id="todo-list">
                </div>
            </section>    
        </main>

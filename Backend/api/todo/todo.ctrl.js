@@ -12,6 +12,7 @@ const index = (req, res) => {
             limit:limit
         })
         .then(todos => {
+            console.log(todos.length);
             res.json(todos);
         });
 }
@@ -34,14 +35,15 @@ const show = (req, res) => {
 
 const create = (req, res) => {
     const text = req.body.text;
-    const color = req.body.color;
+    const checked = 0;
     
-    if(!text || !color)
+    if(!text)
         return res.status(400).end();
         
-    models.Todo.create({text, color})
+    models.Todo.create({text, checked})
         .then(todo => {
-            res.status(201).json(todo)
+            console.log(text);
+            res.status(201).json(todo);
         })
         .catch(err => {
            if(err.name === 'SequelizeUniqueConstraintError') {
@@ -49,7 +51,6 @@ const create = (req, res) => {
            }
            res.status(500).end();
         });
-    
 }
 
 const update = (req, res) => {
@@ -58,7 +59,7 @@ const update = (req, res) => {
     if(Number.isNaN(id))
         return res.status(400).end();
         
-    const { text, color } = req.body;
+    const { text, checked } = req.body;
     
     models.Todo.findOne({where:{id}})
         .then(todo => {
@@ -66,14 +67,13 @@ const update = (req, res) => {
                 return res.status(404).end();
             
             todo.text = text;
-            todo.color = color;
+            todo.checked = checked;
+            todo.lastModifiedDate = new Date().toISOString();
             
             todo.save()
                 .then(_ => {
                     res.json(todo);
                 })
-                
-            
         })
 }
 

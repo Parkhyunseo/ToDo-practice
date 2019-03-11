@@ -9,8 +9,11 @@ const Todo = sequelize.define('Todo', {
     text: {
         type:Sequelize.STRING,
     },
-    color: {
-        type:Sequelize.STRING,
+    checked: {
+        type:Sequelize.INTEGER,
+    },
+    lastModifiedDate: {
+        type:Sequelize.DATE,
     },
 });
 
